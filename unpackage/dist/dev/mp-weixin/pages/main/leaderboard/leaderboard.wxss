@@ -1,0 +1,41 @@
+
+.status_bar {
+	height: 25px;
+	width: 100%;
+}
+.top_view {
+	height: 25px;
+	width: 100%;
+	position: fixed;
+	background-color: white;
+	top: 0;
+	z-index: 999;
+}
+.ranklist {
+	/* background-color: aquamarine; */
+	/* width: 1; */
+	padding: 20rpx;
+
+	height: auto;
+}
+.recommendedreadingmaterial {
+	padding: 20rpx;
+	height: auto;
+}
+.container {
+	display: flex;
+	flex-direction: column;
+}
+.row {
+	display: flex;
+}
+.item {
+	flex: 1;
+	height: 300rpx;
+	text-align: center;
+	background-color: #f0f0f0;
+	margin: 5px;
+
+	width: 47.6%;
+}
+

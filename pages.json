@@ -1,0 +1,261 @@
+{
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+			"path": "pages/main/discover/discover",
+			"style": {
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/user/login/login",
+			"style": {
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/index/index",
+			"style": {
+				"navigationBarTitleText": "智阅 - 个性化文章阅读推荐应用"
+			}
+		},
+		{
+			"path": "pages/user/register/register",
+			"style": {
+				"navigationBarTitleText": "注册智阅，畅享文章个性化阅读推荐",
+				"enablePullDownRefresh": false
+
+			}
+		},
+		{
+			"path": "pages/common/agreement/userservice/userservice",
+			"style": {
+				"navigationBarTitleText": "用户服务协议",
+				"enablePullDownRefresh": false
+			}
+		},
+
+		{
+			"path": "pages/main/leaderboard/leaderboard",
+			"style": {
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/main/notice/notice",
+			"style": {
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/main/mine/mine",
+			"style": {
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/main/article/detail/detail",
+			"style": {
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/main/article/comment/comment",
+			"style": {
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/main/leaderboard/rankdetail/rankdetail",
+			"style": {
+				"navigationBarTitleText": "榜单详情页",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/main/leaderboard/readingmaterialdetail/readingmaterialdetail",
+			"style": {
+				"navigationBarTitleText": "读物详情页",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/user/forgetpassword/forgetpassword",
+			"style": {
+				"navigationBarTitleText": "找回密码",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/common/interestpreference/newuserpreference/newuserpreference",
+			"style": {
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/main/myhome/myhome",
+			"style": {
+				"navigationBarTitleText": "我的个人主页",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/user/personaldata/personaldata",
+			"style": {
+				"navigationBarTitleText": "个人资料页",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/main/article/reading/reading",
+			"style": {
+				"navigationBarTitleText": "",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/main/myhome/tasarticlesdetail/tasarticlesdetail",
+			"style": {
+				"navigationBarTitleText": "文章集合详情页",
+				"navigationStyle": "custom",
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+		},
+		{
+			"path": "pages/main/mine/myarticlesetinfo/myarticlesetinfo",
+			"style": {
+				"navigationBarTitleText": "文章集列表页",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/main/mine/settings/settings",
+			"style": {
+				"navigationBarTitleText": "软件设置页面",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/main/mine/myarticlesetinfo/addnewarticleset/addnewarticleset",
+			"style": {
+				"navigationBarTitleText": "创建新的文章集",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/main/mine/mysmartreadingcoin/mysmartreadingcoin",
+			"style": {
+				"navigationBarTitleText": "我的智阅币",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/main/discover/searchresult/searchresult",
+			"style": {
+				"navigationBarTitleText": "搜索结果页面",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/main/classification/classification",
+			"style": {
+				"navigationBarTitleText": "分类页面",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/main/mine/mycollection/mycollection",
+			"style": {
+				"navigationBarTitleText": "我的收藏",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/main/mine/myarticlesetinfo/editarticleset/editarticleset",
+			"style": {
+				"navigationBarTitleText": "编辑文章集",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/main/mine/feedback/feedback",
+			"style": {
+				"navigationBarTitleText": "意见反馈",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/main/mine/purchasedarticles/purchasedarticles",
+			"style": {
+				"navigationBarTitleText": "已购文章",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/main/mine/mynotice/mynotice",
+			"style": {
+				"navigationBarTitleText": "我的通知",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/main/mine/mynote/mynote",
+			"style": {
+				"navigationBarTitleText": "我的笔记",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/main/mine/mypoint/mypoint",
+			"style": {
+				"navigationBarTitleText": "我的积分",
+				"navigationStyle": "custom"
+			}
+		}
+	],
+
+	"tabBar": {
+		"color": "#999999",
+		"selectedColor": "#1296db",
+		"borderStyle": "white",
+		"backgroundColor": "#FFFFFF",
+		"list": [
+
+			{
+				"pagePath": "pages/main/discover/discover",
+				"text": "发现",
+				"iconPath": "static/images/tabbar/discover.png",
+				"selectedIconPath": "static/images/tabbar/discover_.png"
+
+			},
+			{
+				"pagePath": "pages/main/classification/classification",
+				"text": "",
+				"iconPath": "static/images/tabbar/class.png",
+				"selectedIconPath": "static/images/tabbar/class_.png"
+			},
+			{
+				"pagePath": "pages/main/leaderboard/leaderboard",
+				"text": "",
+				"iconPath": "static/images/tabbar/rank.png",
+				"selectedIconPath": "static/images/tabbar/rank_.png"
+			},
+
+			{
+				"pagePath": "pages/main/mine/mine",
+				"text": "",
+				"iconPath": "static/images/tabbar/mine.png",
+				"selectedIconPath": "static/images/tabbar/mine_.png"
+			}
+		]
+	},
+
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "智阅",
+		"navigationBarBackgroundColor": "#ffffff",
+		"backgroundColor": "#F8F8F8"
+	},
+	"uniIdRouter": {}
+}

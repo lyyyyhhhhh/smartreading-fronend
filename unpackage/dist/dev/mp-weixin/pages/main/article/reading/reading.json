@@ -1,0 +1,12 @@
+{
+  "navigationBarTitleText": "",
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "uni-fav": "/uni_modules/uni-fav/components/uni-fav/uni-fav",
+    "u-divider": "/uni_modules/uview-ui/components/u-divider/u-divider",
+    "u--textarea": "/uni_modules/uview-ui/components/u--textarea/u--textarea",
+    "uni-rate": "/uni_modules/uni-rate/components/uni-rate/uni-rate",
+    "u-overlay": "/uni_modules/uview-ui/components/u-overlay/u-overlay",
+    "ls-loading": "/uni_modules/ls-loading/components/ls-loading/ls-loading"
+  }
+}

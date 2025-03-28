@@ -1,0 +1,72 @@
+{
+  "pages": [
+    "pages/main/discover/discover",
+    "pages/user/login/login",
+    "pages/index/index",
+    "pages/user/register/register",
+    "pages/common/agreement/userservice/userservice",
+    "pages/main/leaderboard/leaderboard",
+    "pages/main/notice/notice",
+    "pages/main/mine/mine",
+    "pages/main/article/detail/detail",
+    "pages/main/leaderboard/rankdetail/rankdetail",
+    "pages/main/leaderboard/readingmaterialdetail/readingmaterialdetail",
+    "pages/user/forgetpassword/forgetpassword",
+    "pages/common/interestpreference/newuserpreference/newuserpreference",
+    "pages/main/myhome/myhome",
+    "pages/user/personaldata/personaldata",
+    "pages/main/article/reading/reading",
+    "pages/main/myhome/tasarticlesdetail/tasarticlesdetail",
+    "pages/main/mine/myarticlesetinfo/myarticlesetinfo",
+    "pages/main/mine/settings/settings",
+    "pages/main/mine/myarticlesetinfo/addnewarticleset/addnewarticleset",
+    "pages/main/mine/mysmartreadingcoin/mysmartreadingcoin",
+    "pages/main/discover/searchresult/searchresult",
+    "pages/main/classification/classification",
+    "pages/main/mine/mycollection/mycollection",
+    "pages/main/mine/myarticlesetinfo/editarticleset/editarticleset",
+    "pages/main/mine/feedback/feedback",
+    "pages/main/mine/purchasedarticles/purchasedarticles",
+    "pages/main/mine/mynotice/mynotice"
+  ],
+  "subPackages": [],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "智阅",
+    "navigationBarBackgroundColor": "#ffffff",
+    "backgroundColor": "#F8F8F8"
+  },
+  "tabBar": {
+    "color": "#999999",
+    "selectedColor": "#1296db",
+    "borderStyle": "white",
+    "backgroundColor": "#FFFFFF",
+    "list": [
+      {
+        "pagePath": "pages/main/discover/discover",
+        "text": "发现",
+        "iconPath": "static/images/tabbar/discover.png",
+        "selectedIconPath": "static/images/tabbar/discover_.png"
+      },
+      {
+        "pagePath": "pages/main/classification/classification",
+        "text": "",
+        "iconPath": "static/images/tabbar/class.png",
+        "selectedIconPath": "static/images/tabbar/class_.png"
+      },
+      {
+        "pagePath": "pages/main/leaderboard/leaderboard",
+        "text": "",
+        "iconPath": "static/images/tabbar/rank.png",
+        "selectedIconPath": "static/images/tabbar/rank_.png"
+      },
+      {
+        "pagePath": "pages/main/mine/mine",
+        "text": "",
+        "iconPath": "static/images/tabbar/mine.png",
+        "selectedIconPath": "static/images/tabbar/mine_.png"
+      }
+    ]
+  },
+  "usingComponents": {}
+}

@@ -1,0 +1,10 @@
+{
+  "navigationBarTitleText": "搜索结果页面",
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "uni-data-select": "/uni_modules/uni-data-select/components/uni-data-select/uni-data-select",
+    "uni-search-bar": "/uni_modules/uni-search-bar/components/uni-search-bar/uni-search-bar",
+    "ls-loading": "/uni_modules/ls-loading/components/ls-loading/ls-loading",
+    "u-empty": "/uni_modules/uview-ui/components/u-empty/u-empty"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "navigationBarTitleText": "我的收藏",
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "uni-nav-bar": "/uni_modules/uni-nav-bar/components/uni-nav-bar/uni-nav-bar",
+    "u-empty": "/uni_modules/uview-ui/components/u-empty/u-empty",
+    "uni-tag": "/uni_modules/uni-tag/components/uni-tag/uni-tag",
+    "uni-rate": "/uni_modules/uni-rate/components/uni-rate/uni-rate",
+    "u-divider": "/uni_modules/uview-ui/components/u-divider/u-divider",
+    "u-modal": "/uni_modules/uview-ui/components/u-modal/u-modal",
+    "u-action-sheet": "/uni_modules/uview-ui/components/u-action-sheet/u-action-sheet",
+    "ls-loading": "/uni_modules/ls-loading/components/ls-loading/ls-loading"
+  }
+}

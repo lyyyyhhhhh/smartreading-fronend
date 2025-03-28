@@ -1,0 +1,23 @@
+{
+  "dependencies": {
+    "@dcloudio/uni-ui": "^1.5.7",
+    "uview-ui": "^2.0.38"
+  },
+  "id": "StarLee-logistics",
+  "name": "物流跟踪，物流信息进度，快递物流信息",
+  "displayName": "物流跟踪，物流信息进度，快递物流信息",
+  "version": "1.0.3",
+  "description": "uniapp组件，展示快递物流跟踪，可复制物流单号，更改主题色等",
+  "keywords": [
+      "物流查询",
+      "快递",
+      "流程",
+      "进度"
+  ],
+  "dcloudext": {
+      "category": [
+          "前端组件",
+          "通用组件"
+      ]
+  }
+}

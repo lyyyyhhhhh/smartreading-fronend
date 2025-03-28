@@ -1,0 +1,11 @@
+{
+  "navigationBarTitleText": "我的个人主页",
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "uni-nav-bar": "/uni_modules/uni-nav-bar/components/uni-nav-bar/uni-nav-bar",
+    "uni-segmented-control": "/uni_modules/uni-segmented-control/components/uni-segmented-control/uni-segmented-control",
+    "u-divider": "/uni_modules/uview-ui/components/u-divider/u-divider",
+    "u-scroll-list": "/uni_modules/uview-ui/components/u-scroll-list/u-scroll-list",
+    "uni-rate": "/uni_modules/uni-rate/components/uni-rate/uni-rate"
+  }
+}

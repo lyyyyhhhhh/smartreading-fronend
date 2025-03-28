@@ -1,0 +1,29 @@
+
+.loading-wrapper.data-v-39e67dfa {
+	position: fixed;
+	left: 0;
+	right: 0;
+	z-index: 997;
+	background-color: #ffffff;
+
+
+
+
+	display: flex;
+
+	align-items: center;
+	justify-content: center;
+	overflow: hidden;
+}
+.loading-wrapper-embed.data-v-39e67dfa {
+	flex: 1;
+	position: relative;
+	margin-top: 0;
+	margin-right: 0;
+	margin-bottom: 0;
+	margin-left: 0;
+	text-align: center;
+	background-color: transparent;
+	z-index: 1;
+}
+

@@ -1,0 +1,10 @@
+{
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "uni-nav-bar": "/uni_modules/uni-nav-bar/components/uni-nav-bar/uni-nav-bar",
+    "uni-rate": "/uni_modules/uni-rate/components/uni-rate/uni-rate",
+    "uni-tag": "/uni_modules/uni-tag/components/uni-tag/uni-tag",
+    "u-read-more": "/uni_modules/uview-ui/components/u-read-more/u-read-more",
+    "ls-loading": "/uni_modules/ls-loading/components/ls-loading/ls-loading"
+  }
+}

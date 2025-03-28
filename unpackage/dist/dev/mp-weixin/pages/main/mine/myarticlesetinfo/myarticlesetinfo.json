@@ -1,0 +1,10 @@
+{
+  "navigationBarTitleText": "文章集列表页",
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "uni-nav-bar": "/uni_modules/uni-nav-bar/components/uni-nav-bar/uni-nav-bar",
+    "u-divider": "/uni_modules/uview-ui/components/u-divider/u-divider",
+    "ls-loading": "/uni_modules/ls-loading/components/ls-loading/ls-loading",
+    "u-modal": "/uni_modules/uview-ui/components/u-modal/u-modal"
+  }
+}

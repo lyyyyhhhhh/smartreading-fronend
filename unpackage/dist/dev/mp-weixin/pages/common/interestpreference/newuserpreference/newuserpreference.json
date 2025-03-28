@@ -1,0 +1,9 @@
+{
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "uni-datetime-picker": "/uni_modules/uni-datetime-picker/components/uni-datetime-picker/uni-datetime-picker",
+    "address-picker": "/uni_modules/address-picker/components/address-picker/address-picker",
+    "uni-combox": "/uni_modules/uni-combox/components/uni-combox/uni-combox",
+    "u-button": "/uni_modules/uview-ui/components/u-button/u-button"
+  }
+}

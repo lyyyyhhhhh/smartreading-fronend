@@ -1,0 +1,1 @@
+<view class="data-v-b845bcc0"><view class="status_bar data-v-b845bcc0"><view class="top_view data-v-b845bcc0"></view></view><uni-nav-bar vue-id="5070d934-1" left-icon="left" border="{{false}}" height="60px" title="我的通知" data-event-opts="{{[['^clickLeft',[['backLast']]]]}}" bind:clickLeft="__e" class="data-v-b845bcc0" bind:__l="__l"></uni-nav-bar></view>
