@@ -660,7 +660,7 @@ export default {
     attachEventListeners() {
       // 给选中的高亮元素绑定展示的函数
       document.querySelector('.text-container').addEventListener('click', (event) => {
-        const target = event.target.closest('span[data-v-4dd6a693]');
+        const target = event.target.closest('span');
         if (target) {
           const targetString = target.outerHTML;
           // 提取 style 属性值, 版本不同找不到bug
