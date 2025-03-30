@@ -462,140 +462,140 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%; /* 页面宽度自适应 */
+}
 
-  .header {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    color: #fff;
-    padding-bottom: 20rpx;
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #fff;
+  padding-bottom: 20rpx;
+  width: 100%; /* 自适应宽度 */
+}
 
-    .header-title {
-      background: #F2856E;
-      width: 400rpx;
-      height: 50rpx;
-      border-radius: 16rpx;
-      font-size: 18px;
-      text-align: center;
-      font-weight: bold;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+.header-title {
+  background: #F2856E;
+  width: 80%; /* 使用百分比来让标题宽度自适应 */
+  max-width: 400rpx; /* 限制最大宽度 */
+  height: 50rpx;
+  border-radius: 16rpx;
+  font-size: 18px;
+  text-align: center;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-      image {
-        width: 40rpx;
-        height: 40rpx;
-        margin-right: 8rpx;
-      }
-    }
-  }
+.header-title image {
+  width: 40rpx;
+  height: 40rpx;
+  margin-right: 8rpx;
+}
 
-  .ranking {
-    width: auto;
-    margin-left: 20rpx;
-    margin-right: 20rpx;
-    border-radius: 30rpx;
-    box-sizing: border-box;
-    padding: 5rpx;
-    background: #EAEFF1;
-  }
+.ranking {
+  margin-left: 5%;
+  margin-right: 5%;
+  border-radius: 30rpx;
+  box-sizing: border-box;
+  padding: 5rpx;
+  background: #EAEFF1;
+  width: 90%; /* 自适应宽度 */
+}
 
-  .ranking-title {
-    display: flex;
-    align-items: center;
-    font-weight: bold;
-  }
+.ranking-title {
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+  width: 100%;
+}
 
-  .ranking-title text {
-    text-align: center;
-  }
+.ranking-title text {
+  text-align: center;
+}
 
-  .ranking-title text:nth-child(1) { /* 排名列 */
-    width: 60rpx;
-  }
+.ranking-title text:nth-child(1) {
+  width: 15%; /* 排名列占 15% */
+}
 
-  .ranking-title text:nth-child(2) { /* 文章列 */
-    flex-grow: 2; /* 让文章列占更多空间 */
-    text-align: left;
-    padding-left: 10rpx;
-  }
+.ranking-title text:nth-child(2) {
+  flex-grow: 2; /* 让文章列占更多空间 */
+  text-align: left;
+  padding-left: 10rpx;
+}
 
-  .ranking-title text:nth-child(3) { /* 热度值列 */
-    width: 100rpx;
-    text-align: right;
-  }
+.ranking-title text:nth-child(3) {
+  width: 20%; /* 热度值列占 20% */
+  text-align: right;
+}
 
-  .separator {
-    width: 3rpx; /* 变成竖线 */
-    height: auto; /* 让其撑满 */
-    flex-shrink: 0; /* 避免被压缩 */
-    background-color: white; /* 设置颜色 */
-    margin: 0 20rpx; /* 增加左右间距，让两边内容分开 */
-  }
+.separator {
+  width: 3rpx;
+  height: auto;
+  flex-shrink: 0;
+  background-color: white;
+  margin: 0 20rpx;
+}
 
-  .ranking-sum {
-    display: flex; /* 让 .ranking-list 和 .separator 并排 */
-    justify-content: center; /* 居中对齐 */
-    align-items: stretch; /* 让分隔线充满高度 */
-    width: 100%;
-  }
+.ranking-sum {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  width: 100%;
+}
 
-  .ranking-list {
-    width: 48%; /* 每个榜单占 48%，留点间距 */
-    padding: 10px;
-    border-radius: 10px;
-  }
+.ranking-list {
+  width: 48%; /* 每个榜单占 48% */
+  padding: 10px;
+  border-radius: 10px;
+  margin: 1%; /* 留出间隙 */
+}
 
-  .ranking-list-item {
-    display: flex;
-    align-items: center;
-    height: 80rpx;
-    font-size: 14rpx;
-  }
+.ranking-list-item {
+  display: flex;
+  align-items: center;
+  height: 80rpx;
+  font-size: 14rpx;
+}
 
-  /* 调整排名列宽度 */
-  .ranking-list-number {
-    width: 60rpx;
-    text-align: center;
-    color: #777;
-  }
+.ranking-list-number {
+  width: 10%;
+  text-align: center;
+  color: #777;
+}
 
-  .ranking-list-number image {
-    width: 25rpx;
-    height: 25rpx;
-  }
+.ranking-list-number image {
+  width: 25rpx;
+  height: 25rpx;
+}
 
-  /* 文章列 */
-  .ranking-list-nickname {
-    display: flex;
-    align-items: center;
-    flex-grow: 2; /* 让文章列占更多空间 */
-    padding-left: 10rpx;
-  }
+.ranking-list-nickname {
+  display: flex;
+  align-items: center;
+  flex-grow: 2;
+  padding-left: 10rpx;
+}
 
-  /* 文章封面图 */
-  .ranking-list-nickname image {
-    width: 30rpx;
-    height: 30rpx;
-    border-radius: 50%;
-    margin-right: 10rpx;
-    flex-shrink: 0; /* 防止图片缩小 */
-  }
+.ranking-list-nickname image {
+  width: 30rpx;
+  height: 30rpx;
+  border-radius: 50%;
+  margin-right: 10rpx;
+  flex-shrink: 0;
+}
 
-  /* 文章标题 */
-  .ranking-list-nickname text {
-    width: 100rpx;
-    flex: 1;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
+.ranking-list-nickname text {
+  width: 100%;
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 
-  /* 热度值列 */
-  .ranking-list-score {
-    width: 100rpx;
-    text-align: right;
-    color: #E28935;
-    font-size: 16rpx;
-  }
+.ranking-list-score {
+  width: 20%; /* 热度值列占 20% */
+  text-align: right;
+  color: #E28935;
+  font-size: 16rpx;
 }
 </style>

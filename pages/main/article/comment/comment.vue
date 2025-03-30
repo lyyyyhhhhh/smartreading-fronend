@@ -215,7 +215,6 @@ export default {
     if (options.comments) {
       try {
         this.comments = JSON.parse(decodeURIComponent(options.comments));
-        console.log(this.comments);
       } catch (e) {
         console.error("解析评论数据失败", e);
       }
@@ -281,10 +280,9 @@ export default {
         }
       });
     },
-    formatDate(dateStr) {
-      if (!dateStr) return '';
-      const date = new Date(dateStr);
-      return `${date.getFullYear()}年${date.getMonth() + 1}月${date.getDate()}日 ${date.getHours()}:${date.getMinutes().toString().padStart(2, '0')}`;
+    formatDate(timeArr) {
+      let date = new Date(timeArr[0], timeArr[1] - 1, timeArr[2], timeArr[3], timeArr[4], timeArr[5]);
+      return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')} ${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}:${String(date.getSeconds()).padStart(2, '0')}`;
     },
     showPopup(comment) {
       this.comment = comment
