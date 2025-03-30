@@ -230,15 +230,15 @@
         <!-- 弹窗内容 -->
         <view class="hotPopup-title">🔥 增加文章热度</view>
         <view class="heat-info">
-          <text style="font-size: 20px; font-weight: bold;">📊 当前文章热度：</text>
+          <text style="font-size: 30rpx; font-weight: bold;">📊 当前文章热度：</text>
           <text class="heat-highlight">{{ currentHeat }}</text>
         </view>
         <view class="heat-gap" v-if="rank > 0">
-          <text style="font-size: 18px;">🏆 距上一名还差：</text>
+          <text style="font-size: 25rpx;">🏆 距上一名还差：</text>
           <text class="heat-highlight">{{ heatDiff }}</text>
         </view>
         <view class="heat-gap" v-else>
-          <text style="font-size: 18px;">🏆 领先第二名：</text>
+          <text style="font-size: 25rpx;">🏆 领先第二名：</text>
           <text class="heat-highlight">{{ -heatDiff }}</text>
         </view>
         <!-- 输入贡献热度 -->
@@ -970,7 +970,7 @@ export default {
     deleteComment() {
       console.log(this.currentHighlight);
       uni.request({
-        url: "http://localhost:8088/api/highlight",
+        url: "http://114.215.189.9:8088/api/highlight",
         method: 'DELETE',
         data: this.currentHighlight,
         success: res => {
@@ -1009,7 +1009,7 @@ export default {
     saveHighlightToDb(highlight) {
       return new Promise((resolve, reject) => {
         uni.request({
-          url: "http://localhost:8088/api/highlight",
+          url: "http://114.215.189.9:8088/api/highlight",
           method: 'POST',
           data: highlight,
           success: res => {
@@ -1026,7 +1026,7 @@ export default {
     // 从db中获取所有高亮评论
     getHighlightsFromDb(userId, articleId) {
       uni.request({
-        url: `http://localhost:8088/api/highlight/user?userId=${userId}&articleId=${articleId}`,
+        url: `http://114.215.189.9:8088/api/highlight/user?userId=${userId}&articleId=${articleId}`,
         method: 'GET',
         success: res => {
           this.highlights = res.data;
@@ -1064,7 +1064,7 @@ export default {
       }
       await new Promise((resolve, reject) => {
         uni.request({
-          url: `http://localhost:8088/api/reading/submit`,
+          url: `http://114.215.189.9:8088/api/reading/submit`,
           method: 'POST',
           data: {
             "articleId": this.thisarticleid,
@@ -1093,13 +1093,13 @@ export default {
     // 更新当前阅读任务
     updateReadingTask() {
       uni.request({
-        url: `http://localhost:8088/api/tasks/ongoing?userId=1&taskType=READING`,
+        url: `http://114.215.189.9:8088/api/tasks/ongoing?userId=1&taskType=READING`,
         method: 'GET',
         success: async res => {
           // 获取阅读规则信息
           await new Promise((resolve) => {
             uni.request({
-              url: `http://localhost:8088/api/tasks/rule?taskType=READING`,
+              url: `http://114.215.189.9:8088/api/tasks/rule?taskType=READING`,
               method: 'GET',
               success: res => {
                 this.readingRules = JSON.parse(res.data.conditionJson).time_stage;
@@ -1125,7 +1125,7 @@ export default {
     async getReadingLog() {
       await new Promise((resolve) => {
         uni.request({
-          url: `http://localhost:8088/api/reading/total?userId=1`,
+          url: `http://114.215.189.9:8088/api/reading/total?userId=1`,
           method: 'GET',
           success: res => {
             this.totalTime = res.data;
@@ -1152,7 +1152,7 @@ export default {
     async getUserReadingTask() {
       await new Promise((resolve, reject) => {
         uni.request({
-          url: "http://localhost:8088/api/tasks/rule?taskType=READING",
+          url: "http://114.215.189.9:8088/api/tasks/rule?taskType=READING",
           method: 'GET',
           success: async res => {
             if (res.data.isActive) {
@@ -1184,7 +1184,7 @@ export default {
       // 请求任务的次数状态
       await new Promise((resolve, reject) => {
         uni.request({
-          url: `http://localhost:8088/api/tasks/detail?userId=1&taskType=READING`,
+          url: `http://114.215.189.9:8088/api/tasks/detail?userId=1&taskType=READING`,
           //url: `http://localhost:8088/api/tasks/detail?userId=${this.userid}&taskType=${taskType}`,
           method: 'GET',
           success: res => {
@@ -1282,7 +1282,7 @@ export default {
     async getArticleHeat(articleId) {
       await new Promise((resolve) => {
         uni.request({
-          url: `http://localhost:8088/heat/getHeat?articleId=${articleId}`,
+          url: `http://114.215.189.9:8088/heat/getHeat?articleId=${articleId}`,
           method: 'GET',
           success: res => {
             console.log("文章热度", res.data);
@@ -1299,7 +1299,7 @@ export default {
     async contributeArticleHeat(articleId, contributeHeat) {
       await new Promise((resolve) => {
         uni.request({
-          url: `http://localhost:8088/heat/contributeHeat?userId=${this.userid}&articleId=${articleId}&heat=${contributeHeat}`,
+          url: `http://114.215.189.9:8088/heat/contributeHeat?userId=${this.userid}&articleId=${articleId}&heat=${contributeHeat}`,
           method: 'POST',
           success: async () => {
             await this.getArticleHeat(articleId);
@@ -1315,7 +1315,7 @@ export default {
       await new Promise((resolve, reject) => {
         // 请求任务的次数状态
         uni.request({
-          url: `http://localhost:8088/api/points/user?userId=1`,
+          url: `http://114.215.189.9:8088/api/points/user?userId=1`,
           method: 'GET',
           success: res => {
             this.userPoints = res.data.totalPoints;
@@ -1613,7 +1613,7 @@ page {
 /* 弹窗容器 */
 .hotPopup-container {
   background: white;
-  width: 50vw;
+  width: 500rpx;
   padding: 30rpx;
   border-radius: 20rpx;
   text-align: center;
@@ -1640,7 +1640,7 @@ uni-popup {
 
 /* 标题 */
 .hotPopup-title {
-  font-size: 25px;
+  font-size: 35rpx;
   font-weight: bold;
   margin-bottom: 30rpx;
   color: #ff5722;
@@ -1649,7 +1649,7 @@ uni-popup {
 /* 文章热度信息 */
 .heat-info,
 .heat-gap {
-  font-size: 18px;
+  font-size: 18rpx;
   margin: 10rpx 0;
 }
 
@@ -1657,18 +1657,24 @@ uni-popup {
 .heat-highlight {
   color: #ff5722;
   font-weight: bold;
-  font-size: 20px;
+  font-size: 30rpx;
+}
+
+.points-cost {
+  color: #ff0000;
+  font-weight: bold;
+  font-size: 20rpx;
 }
 
 .cost-highlight {
   color: #ff0000;
   font-weight: bold;
-  font-size: 20px;
+  font-size: 20rpx;
 }
 
 /* 输入框 */
 .input-container {
-  margin-top: 30rpx;
+  margin-top: 15rpx;
   display: flex; /* 启用 Flexbox */
   justify-content: center; /* 水平居中 */
   align-items: center; /* 垂直居中 */
@@ -1676,26 +1682,26 @@ uni-popup {
 
 .heat-input {
   width: 80%;
-  padding: 6px 15px;
+  padding: 3px 10px;
   border: 2px solid #ff5722;
   border-radius: 10px;
   text-align: center;
-  font-size: 16px;
+  font-size: 20rpx;
 }
 
 /* 按钮 */
 .btn-group {
   display: flex;
   justify-content: space-between;
-  margin-top: 20rpx;
+  margin-top: 15rpx;
 
   .confirm,
   .cancel {
     display: flex; /* 启用 Flexbox 布局 */
     justify-content: center; /* 水平居中 */
     align-items: center; /* 垂直居中 */
-    font-size: 14px; /* 设置更合适的字体大小 */
-    padding: 0 30rpx; /* 调整按钮的内边距，控制按钮大小 */
+    font-size: 20rpx; /* 设置更合适的字体大小 */
+    padding: 0 25rpx; /* 调整按钮的内边距，控制按钮大小 */
     border-radius: 10px;
     flex: 1;
     border: none;

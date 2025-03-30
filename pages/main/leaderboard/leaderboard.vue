@@ -372,7 +372,7 @@ export default {
 
     getAllHeatsFromDb() {
       uni.request({
-        url: `http://localhost:8088/heat/getAllHeats`,
+        url: `http://114.215.189.9:8088/heat/getAllHeats`,
         method: 'GET',
         success: res => {
           this.hotRankList = res.data; // 先保存热度数据
@@ -476,11 +476,11 @@ export default {
 
 .header-title {
   background: #F2856E;
-  width: 80%; /* 使用百分比来让标题宽度自适应 */
+  width: 40%; /* 使用百分比来让标题宽度自适应 */
   max-width: 400rpx; /* 限制最大宽度 */
   height: 50rpx;
   border-radius: 16rpx;
-  font-size: 18px;
+  font-size: 20rpx;
   text-align: center;
   font-weight: bold;
   display: flex;
@@ -513,20 +513,22 @@ export default {
 
 .ranking-title text {
   text-align: center;
+  font-size: 20rpx;
 }
 
 .ranking-title text:nth-child(1) {
   width: 15%; /* 排名列占 15% */
+  text-align: left;
 }
 
 .ranking-title text:nth-child(2) {
   flex-grow: 2; /* 让文章列占更多空间 */
-  text-align: left;
+  text-align: center;
   padding-left: 10rpx;
 }
 
 .ranking-title text:nth-child(3) {
-  width: 20%; /* 热度值列占 20% */
+  width: 25%; /* 热度值列占 20% */
   text-align: right;
 }
 
@@ -556,11 +558,11 @@ export default {
   display: flex;
   align-items: center;
   height: 80rpx;
-  font-size: 14rpx;
+  font-size: 13rpx;
 }
 
 .ranking-list-number {
-  width: 10%;
+  width: 15%;
   text-align: center;
   color: #777;
 }
@@ -573,7 +575,7 @@ export default {
 .ranking-list-nickname {
   display: flex;
   align-items: center;
-  flex-grow: 2;
+  width: 65%;
   padding-left: 10rpx;
 }
 
@@ -586,15 +588,14 @@ export default {
 }
 
 .ranking-list-nickname text {
-  width: 100%;
   flex: 1;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 .ranking-list-score {
-  width: 20%; /* 热度值列占 20% */
-  text-align: right;
+  width: 25%; /* 热度值列占 20% */
+  text-align: center;
   color: #E28935;
   font-size: 16rpx;
 }

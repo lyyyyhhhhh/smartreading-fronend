@@ -94,7 +94,7 @@ export default {
     this.groupedHighlights = {}
     this.articleInfos = {}
     uni.request({
-      url: "http://localhost:8088/api/highlight/user?userId=" + this.userid,
+      url: "http://114.215.189.9:8088/api/highlight/user?userId=" + this.userid,
       method: 'GET',
       success: res => {
         // 拼接出查询条件

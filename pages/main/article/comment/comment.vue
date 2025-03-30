@@ -14,8 +14,8 @@
           </image>
         </view>
         <view
-            style="width: 400rpx; height: 345rpx; margin-left: 20rpx; margin-top: 25rpx; display: flex; flex-direction: column;">
-          <view style="margin-top: 40rpx; margin-left: 20rpx;">
+            style="width: 400rpx; height: 345rpx; margin-left: 20rpx; margin-top: 20rpx; display: flex; flex-direction: column; justify-content: space-between">
+          <view style=" margin-left: 20rpx;">
             <text
                 style="font-weight: bold;font-size: 32rpx;">
               {{ articleInfo.title }}
@@ -28,7 +28,7 @@
             </text>
           </view>
 
-          <view style="margin-left: 20rpx;margin-top: 40rpx; display: flex; text-align: center;">
+          <view style="margin-left: 20rpx;margin-top: 20rpx; display: flex; text-align: center; align-items: center;">
             <uni-rate size="18" allow-half :readonly="true" :value="articleInfo.mark / 2" max="5"/>
             <view style="color: gray; font-size: 23rpx; margin-left: 10rpx;">
               <text>
@@ -70,6 +70,7 @@
           <text style="font-size: 29rpx; font-weight: bold; margin: 20rpx; color: #616161;">简介</text>
         </view>
         <view style="font-size: 25rpx; margin: 20rpx; color: #AEAEAE; letter-spacing: 0.05em;">
+           {{ articleInfo.abstract }}
           <u-read-more showHeight="60" :toggle="true" backgroundImage="none" closeText="更多">
             <rich-text :nodes="articleInfo.abstract"></rich-text>
           </u-read-more>
@@ -165,7 +166,6 @@
 import {
   mapState
 } from 'vuex';
-import UReadMore from "../../../../uni_modules/uview-ui/components/u-read-more/u-read-more.vue";
 import UniIcons from "../../../../uni_modules/uni-icons/components/uni-icons/uni-icons.vue";
 import UniCard from "../../../../uni_modules/uni-card/components/uni-card/uni-card.vue";
 import UniRate from "../../../../uni_modules/uni-rate/components/uni-rate/uni-rate.vue";
@@ -176,7 +176,7 @@ import UButton from "../../../../uni_modules/uview-ui/components/u-button/u-butt
 import UPopup from "../../../../uni_modules/uview-ui/components/u-popup/u-popup.vue";
 
 export default {
-  components: {UPopup, UButton, LsLoading, UniNavBar, UniTag, UniRate, UniCard, UniIcons, UReadMore},
+  components: {UPopup, UButton, LsLoading, UniNavBar, UniTag, UniRate, UniCard, UniIcons},
 
   computed: {
 
@@ -204,7 +204,7 @@ export default {
       pageLoading: true,
       animation: 'twinkle',
       currentPage: 1, // 当前页
-      pageSize: 10, // 每页显示 10 条
+      pageSize: 3, // 每页显示 10 条
       show: false,  // 控制弹出层的显示与隐藏
       isEditing: false,
       editContent: '',       // 保存编辑内容
@@ -235,6 +235,7 @@ export default {
         this.articleInfo.labels = JSON.parse(res.data.articlelabel);
         this.articleInfo.isfree = res.data.freeornot === 0;
         this.articleInfo.oosurl = res.data.aliyuncontentoosurl
+        console.log(this.articleInfo.abstract);
         // 到这里动画结束
         setTimeout(() => {
           this.pageLoading = false;
@@ -307,7 +308,7 @@ export default {
     submitEdit() {
       this.comment.comment = this.editContent;
       uni.request({
-        url: "http://localhost:8088/api/highlight",
+        url: "http://114.215.189.9:8088/api/highlight",
         method: 'POST',
         data: this.comment,
         success: () => {
@@ -329,7 +330,7 @@ export default {
       };
       console.log(currentHighlight);
       uni.request({
-        url: "http://localhost:8088/api/highlight",
+        url: "http://114.215.189.9:8088/api/highlight",
         method: 'DELETE',
         data: currentHighlight,
         success: () => {
@@ -347,7 +348,7 @@ export default {
     flushComments() {
       this.comments = []
       uni.request({
-        url: `http://localhost:8088/api/highlight/user?userId=${this.userid}&articleId=${this.articleInfo.articleId}`,
+        url: `http://114.215.189.9:8088/api/highlight/user?userId=${this.userid}&articleId=${this.articleInfo.articleId}`,
         method: 'GET',
         success: res => {
           for (const highlight of res.data) {
@@ -376,7 +377,7 @@ export default {
 .article-info {
   margin-top: 10rpx;
   width: 100%;
-  height: auto;
+  height: 200rpx;
   display: flex;
   flex-direction: column;
 }

@@ -392,7 +392,7 @@ export default {
     this.searchValue = '';
     this.selectshow = false;
     uni.request({
-      url: `http://localhost:8088/api/user-purchased-articles/user?userId=${this.userid}`,
+      url: `http://114.215.189.9:8088/api/user-purchased-articles/user?userId=${this.userid}`,
       method: 'GET',
       data: {},
       success: res => {
@@ -407,7 +407,7 @@ export default {
     });
     // 请求任务的次数状态
     uni.request({
-      url: `http://localhost:8088/api/points/user?userId=${this.userid}`,
+      url: `http://114.215.189.9:8088/api/points/user?userId=${this.userid}`,
       method: 'GET',
       success: res => {
         this.coins = res.data.coins;
@@ -536,7 +536,7 @@ export default {
               if (this.points >= articleiteminfo.price) {
                 // 不必同步等待
                 uni.request({
-                  url: `http://localhost:8088/api/user-purchased-articles`,
+                  url: `http://114.215.189.9:8088/api/user-purchased-articles`,
                   method: 'POST',
                   data: {
                     "userId": this.userid,

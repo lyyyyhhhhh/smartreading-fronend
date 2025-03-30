@@ -160,7 +160,7 @@ export default {
     this.pageLoading = true;
     // 模拟请求数据
     uni.request({
-      url: `http://localhost:8088/api/user-purchased-articles/user?userId=${this.userid}`,
+      url: `http://114.215.189.9:8088/api/user-purchased-articles/user?userId=${this.userid}`,
       method: 'GET',
       data: {},
       success: res => {

@@ -122,7 +122,7 @@
                 <view class="exchange-points">{{ denomination.points }} 积分</view>
                 <button :class="['exchange-btn', {'clicked': clickStatus[index] === true }]"
                         @click="exchangePoints(denomination.points, index)" :disabled="isDisabled(index)">
-                  {{ clickStatus[index] === true ? '今日已兑换' : '兑换' }}
+                  {{ clickStatus[index] === true ? '已兑换' : '兑换' }}
                 </button>
               </view>
               <!-- 其他兑换项代码保持不变 -->
@@ -263,7 +263,7 @@ export default {
     async getUserTasks() {
       await new Promise((resolve, reject) => {
         uni.request({
-          url: "http://localhost:8088/api/tasks/rules",
+          url: "http://114.215.189.9:8088/api/tasks/rules",
           method: 'GET',
           success: async res => {
             for (let i = 0; i < res.data.length; i++) {
@@ -296,7 +296,7 @@ export default {
       // 请求任务的次数状态
       await new Promise((resolve, reject) => {
         uni.request({
-          url: `http://localhost:8088/api/tasks/detail?userId=1&taskType=${taskType}`,
+          url: `http://114.215.189.9:8088/api/tasks/detail?userId=1&taskType=${taskType}`,
           //url: `http://localhost:8088/api/tasks/detail?userId=${this.userid}&taskType=${taskType}`,
           method: 'GET',
           success: res => {
@@ -338,7 +338,7 @@ export default {
         if (taskType === 'SIGN_IN') {
           sumPoints += task.conditionJson.extra_points[task.progress.continuousNum % 7];
         } else if (taskType === "READING") {
-          sumPoints += task.conditionJson.time_stage[task.completedNum].points;
+          sumPoints += task.conditionJson.time_stage[task.claimedNum - 1].points;
         }
         this.points += sumPoints; // 增加积分
         uni.showToast({
@@ -354,7 +354,7 @@ export default {
       await new Promise((resolve, reject) => {
         // 请求任务的次数状态
         uni.request({
-          url: `http://localhost:8088/api/tasks/claim`,
+          url: `http://114.215.189.9:8088/api/tasks/claim`,
           method: 'POST',
           data: {
             'userId': 1,
@@ -377,7 +377,7 @@ export default {
       await new Promise((resolve, reject) => {
         // 请求任务的次数状态
         uni.request({
-          url: `http://localhost:8088/api/sign-in`,
+          url: `http://114.215.189.9:8088/api/sign-in`,
           method: 'POST',
           data: {
             'userId': 1,
@@ -399,7 +399,7 @@ export default {
       await new Promise((resolve, reject) => {
         // 请求任务的次数状态
         uni.request({
-          url: `http://localhost:8088/api/points/user?userId=1`,
+          url: `http://114.215.189.9:8088/api/points/user?userId=1`,
           //url: `http://localhost:8088/api/points/user?userId=${this.userid}`,
           method: 'GET',
           success: res => {
@@ -529,7 +529,7 @@ export default {
       }
       await new Promise((resolve, reject) => {
         uni.request({
-          url: `http://localhost:8088/api/points/exchange`,
+          url: `http://114.215.189.9:8088/api/points/exchange`,
           method: 'POST',
           data: {
             'userId': 1,
@@ -567,7 +567,7 @@ export default {
 
     getPointsLog() {
       uni.request({
-        url: `http://localhost:8088/api/points/log?userId=1`,
+        url: `http://114.215.189.9:8088/api/points/log?userId=1`,
         method: 'GET',
         success: res => {
           this.pointsLog = [];
@@ -917,14 +917,14 @@ export default {
 }
 
 .exchange-coin {
-  font-size: 15px;
+  font-size: 22rpx;
   font-weight: bold;
   color: #333;
   margin-bottom: 10px;
 }
 
 .exchange-points {
-  font-size: 14px;
+  font-size: 20rpx;
   color: #666;
 }
 
@@ -933,9 +933,9 @@ export default {
   background-color: #ff9933;
   color: #fff;
   margin-top: 15rpx;
-  padding: 12px 12px;
+  padding: 10px 10px;
   border-radius: 20px;
-  font-size: 13px;
+  font-size: 20rpx;
   cursor: pointer;
   transition: all 0.3s ease;
   width: 100%;
@@ -959,6 +959,7 @@ export default {
 }
 
 .custom-exchange input {
+  font-size: 20rpx;
   flex: 1;
   padding: 12px;
   border: 1px solid #ccc;
@@ -984,7 +985,7 @@ export default {
   color: #fff;
   padding: 10rpx;
   border-radius: 20rpx;
-  font-size: 14px;
+  font-size: 15rpx;
   border: none;
   cursor: pointer;
   transition: all 0.3s ease;
