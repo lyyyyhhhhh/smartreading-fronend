@@ -609,6 +609,12 @@ export default {
 
 
     var articleinfo = JSON.parse(e.article);
+    // 使用nginx代理
+    var proxyUrl = articleinfo.oosurl.replace(
+        "https://dingjiaxiong.oss-cn-hangzhou.aliyuncs.com",
+        "http://114.215.189.9/oss"
+    );
+    console.log(articleinfo.oosurl, proxyUrl);
     this.thisarticleid = articleinfo.articleid;
     if (this.userid === null) {
       this.$store.commit('setDefaultUserId');
@@ -618,7 +624,7 @@ export default {
     this.getUserPoints()
 
     uni.request({
-      url: articleinfo.oosurl,
+      url: proxyUrl,
       method: 'GET',
       data: {},
       success: res => {

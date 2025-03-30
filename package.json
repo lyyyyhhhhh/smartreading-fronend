@@ -1,23 +1,33 @@
 {
-  "dependencies": {
-    "@dcloudio/uni-ui": "^1.5.7",
-    "uview-ui": "^2.0.38"
-  },
-  "id": "StarLee-logistics",
-  "name": "物流跟踪，物流信息进度，快递物流信息",
-  "displayName": "物流跟踪，物流信息进度，快递物流信息",
+  "name": "StarLee-logistics",
   "version": "1.0.3",
   "description": "uniapp组件，展示快递物流跟踪，可复制物流单号，更改主题色等",
+  "dependencies": {
+    "@dcloudio/uni-ui": "^1.5.7",
+    "uview-ui": "^2.0.38",
+    "vue": "^2.7.16"
+  },
+  "scripts": {
+    "dev": "vue-cli-service serve",
+    "build:h5": "vue-cli-service build",
+    "build:app-plus": "vue-cli-service build -p app-plus"
+  },
   "keywords": [
-      "物流查询",
-      "快递",
-      "流程",
-      "进度"
+    "物流查询",
+    "快递",
+    "流程",
+    "进度"
   ],
   "dcloudext": {
-      "category": [
-          "前端组件",
-          "通用组件"
-      ]
+    "category": [
+      "前端组件",
+      "通用组件"
+    ]
+  },
+  "devDependencies": {
+    "@dcloudio/uni-cli-shared": "^2.0.2-4050720250324001",
+    "@dcloudio/uni-h5": "^2.0.2-4050720250324001",
+    "@vue/cli-service": "^5.0.8",
+    "vue-template-compiler": "^2.7.16"
   }
 }
