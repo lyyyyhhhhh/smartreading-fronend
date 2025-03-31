@@ -8,19 +8,19 @@
     <view class="anmt"
           :style="{color:fontColor,lineHeight:statusBarHeight,backgroundColor:show?menuBg:pageBg,position:'fixed',top:'0',left:'0',zIndex:'6',width:'100%',fontSize:'3vw',zIndex:'20'}">
       <!-- 时间电量开始 -->
-      <view :style="{height:statusBarHeight,padding: '0 5vw',marginTop: '15upx'}">
-        <view style="float: left;letter-spacing:0; margin-left: 47%;">
-          <text v-text="systemTime"></text>
+<!--      <view :style="{height:statusBarHeight,padding: '0 5vw',marginTop: '15upx'}">-->
+<!--        <view style="float: left;letter-spacing:0; margin-left: 47%;">-->
+<!--          <text v-text="systemTime"></text>-->
 
-        </view>
-        <view style="float: right;letter-spacing:0;">
-          <text class="iconfont icon-80dianliang" style="font-size: 3vw;position: relative;">
-            <text class="dianxin" :style="{backgroundColor:show?menuBg:pageBg}">
-              <text class="dLiang" :style="{backgroundColor:fontColor,width:battery+'%'}"></text>
-            </text>
-          </text>
-        </view>
-      </view>
+<!--        </view>-->
+<!--        <view style="float: right;letter-spacing:0;">-->
+<!--          <text class="iconfont icon-80dianliang" style="font-size: 3vw;position: relative;">-->
+<!--            <text class="dianxin" :style="{backgroundColor:show?menuBg:pageBg}">-->
+<!--              <text class="dLiang" :style="{backgroundColor:fontColor,width:battery+'%'}"></text>-->
+<!--            </text>-->
+<!--          </text>-->
+<!--        </view>-->
+<!--      </view>-->
       <!-- 时间电量结束 -->
 
       <!-- 书名章节开始 -->
@@ -228,19 +228,25 @@
     <uni-popup ref="hotPopupRef" type="center">
       <view class="hotPopup-container">
         <!-- 弹窗内容 -->
-        <view class="hotPopup-title">🔥 增加文章热度</view>
+        <view class="hotPopup-title">🔥文章热度</view>
         <view class="heat-info">
-          <text style="font-size: 30rpx; font-weight: bold;">📊 当前文章热度：</text>
+          <text style="font-size: 30rpx; font-weight: bold;">📊当前文章热度：</text>
           <text class="heat-highlight">{{ currentHeat }}</text>
         </view>
+
         <view class="heat-gap" v-if="rank > 0">
-          <text style="font-size: 25rpx;">🏆 距上一名还差：</text>
+          <text style="font-size: 25rpx;">🏆距上一名还差：</text>
           <text class="heat-highlight">{{ heatDiff }}</text>
         </view>
-        <view class="heat-gap" v-else>
-          <text style="font-size: 25rpx;">🏆 领先第二名：</text>
+        <view class="heat-gap" v-else-if="rank = 0">
+          <text style="font-size: 25rpx;">🏆领先第二名：</text>
           <text class="heat-highlight">{{ -heatDiff }}</text>
         </view>
+        <view class="heat-gap" v-else >
+          <text style="font-size: 25rpx;">🏆距离上榜：</text>
+          <text class="heat-highlight">{{ heatDiff }}</text>
+        </view>
+
         <!-- 输入贡献热度 -->
         <view class="input-container">
           <input
@@ -1614,14 +1620,12 @@ page {
 .hotPopup-container {
   background: white;
   width: 500rpx;
-  padding: 30rpx;
   border-radius: 20rpx;
-  text-align: center;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
   position: relative;
   display: flex;
   flex-direction: column; /* 垂直排列子元素 */
-  justify-content: center; /* 垂直居中 */
+  justify-content: space-between; /* 垂直居中 */
   align-items: center; /* 水平居中 */
   height: 100%; /* 确保容器高度充满 */
   z-index: 10; /* 确保弹窗在遮罩层之上 */
@@ -1642,7 +1646,8 @@ uni-popup {
 .hotPopup-title {
   font-size: 35rpx;
   font-weight: bold;
-  margin-bottom: 30rpx;
+  margin-top: 10rpx;
+  margin-bottom: 15rpx;
   color: #ff5722;
 }
 
@@ -1694,7 +1699,7 @@ uni-popup {
   display: flex;
   justify-content: space-between;
   margin-top: 15rpx;
-
+  margin-bottom: 10rpx;
   .confirm,
   .cancel {
     display: flex; /* 启用 Flexbox 布局 */

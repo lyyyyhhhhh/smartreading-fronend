@@ -218,6 +218,7 @@ export default {
         }]
       }],
 
+      recommendedArticleIds: [],
       recommendedarticlelist: [],
 
       cardList: [
@@ -342,50 +343,47 @@ export default {
 
     // 请求文章数据【2024年6月3日17:17:58 请求30条所有数据】
     uni.request({
-      url: 'http://123.56.217.170:2222/api/article/getidtopthirty',
+      url: `http://localhost:8088/api/articles/recommend?userId=${this.userid}`,
       method: 'GET',
       data: {},
       success: res => {
-        // console.log(res.data);
+        this.recommendedArticleIds = res.data;
+        uni.request({
+          url: 'http://123.56.217.170:2222/api/article/getarticlesinfobyids',
+          method: 'POST',
+          data: this.recommendedArticleIds,
+          success: res => {
+            this.recommendedarticlelist.length = 0;
+            for (let i = 0; i < res.data.length; i++) {
+              let articletmp = {
+                articleid: res.data[i].articleId,
+                title: res.data[i].title,
+                pic: res.data[i].coverpic,
+                content: "",
+                abstract: '&emsp;&emsp;' + res.data[i].articleabstract,
+                author: res.data[i].author,
+                mark: res.data[i].markscore,
+                numberofcomments: res.data[i].commentsnumber,
+                labels: JSON.parse(res.data[i].articlelabel),
+                isfree: res.data[i].freeornot === 0,
+                characternumber: res.data[i].charnumber,
+                readingtime: Math.round(res.data[i].charnumber / 220),
+                fulltexturl: res.data[i].aliyuncontentoosurl
+              }
+              if (!articletmp.isfree) {
+                articletmp.price = 5;
+              }
 
-        this.recommendedarticlelist.length = 0;
-
-        for (let i = 0; i < res.data.length; i++) {
-
-          let articletmp = {
-            articleid: res.data[i].articleId,
-            title: res.data[i].title,
-            pic: res.data[i].coverpic,
-            content: "",
-            abstract: '&emsp;&emsp;' + res.data[i].articleabstract,
-            author: res.data[i].author,
-            mark: res.data[i].markscore,
-            numberofcomments: res.data[i].commentsnumber,
-            labels: JSON.parse(res.data[i].articlelabel),
-            isfree: res.data[i].freeornot === 0,
-            characternumber: res.data[i].charnumber,
-            readingtime: Math.round(res.data[i].charnumber / 220),
-            fulltexturl: res.data[i].aliyuncontentoosurl
-          }
-          if (!articletmp.isfree) {
-            articletmp.price = 5;
-          }
-
-          this.recommendedarticlelist.push(articletmp);
-        }
-
-
-        // 到这里动画结束
-        setTimeout(() => {
-          this.pageLoading = false;
-        }, 1500);
-
-      },
-      fail: () => {
-      },
-      complete: () => {
+              this.recommendedarticlelist.push(articletmp);
+            }
+            // 到这里动画结束
+            setTimeout(() => {
+              this.pageLoading = false;
+            }, 1500);
+          },
+        });
       }
-    });
+    })
   },
 
   onShow() {

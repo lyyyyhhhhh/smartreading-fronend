@@ -189,19 +189,9 @@ export default {
             this.myPurchasedArticles.length = 0;
             // 整理结果
             for (let i = 0; i < res.data.length; i++) {
-
-              let purchasedTime = new Date(Date.parse(this.purchasedTimes[i]));
-
-              var year = purchasedTime.getFullYear();
-              var month = ("0" + (purchasedTime.getMonth() + 1)).slice(-2);
-              var day = ("0" + purchasedTime.getDate()).slice(-2);
-              var hours = ("0" + purchasedTime.getHours()).slice(-2);
-              var minutes = ("0" + purchasedTime.getMinutes()).slice(-2);
-              var seconds = ("0" + purchasedTime.getSeconds()).slice(-2);
-
-              var formattedDate = year + "-" + month + "-" + day + " " + hours +
-                  ":" + minutes + ":" + seconds;
-
+              let timeArr = this.purchasedTimes[i]; // 形如 [2025, 3, 27, 3, 36, 1]
+              let date = new Date(timeArr[0], timeArr[1] - 1, timeArr[2], timeArr[3], timeArr[4], timeArr[5]);
+              const formattedDate = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')} ${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}:${String(date.getSeconds()).padStart(2, '0')}`;
               let articleinfo = {
                 articleid: res.data[i].articleId,
                 pic: res.data[i].coverpic,

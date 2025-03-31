@@ -670,14 +670,14 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 20px;
+  align-items: center;
   z-index: 1000;
 }
 
 .log-list {
   width: 90%;
   background-color: #fff;
-  padding: 10px;
+  padding: 5px;
   border-radius: 10px;
   max-height: 60%; /* 最大高度 60% */
   overflow-y: auto; /* 支持纵向滚动 */
@@ -917,14 +917,14 @@ export default {
 }
 
 .exchange-coin {
-  font-size: 22rpx;
+  font-size: 19rpx;
   font-weight: bold;
   color: #333;
   margin-bottom: 10px;
 }
 
 .exchange-points {
-  font-size: 20rpx;
+  font-size: 17rpx;
   color: #666;
 }
 
@@ -935,7 +935,7 @@ export default {
   margin-top: 15rpx;
   padding: 10px 10px;
   border-radius: 20px;
-  font-size: 20rpx;
+  font-size: 17rpx;
   cursor: pointer;
   transition: all 0.3s ease;
   width: 100%;

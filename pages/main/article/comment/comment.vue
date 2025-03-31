@@ -99,11 +99,11 @@
 
                 <!-- 右侧的 "三个点" 菜单按钮 -->
                 <uni-icons
+                    ref="menuIcons"
                     type="more-filled"
                     size="20"
                     color="#666"
-                    @click="showPopup(comment)"/>
-
+                    @click="showPopup(index, comment)" />
               </view>
             </view>
 
@@ -121,16 +121,13 @@
             </view>
           </uni-card>
           <!-- 自定义弹出菜单 -->
-          <view
-              v-show="show"
-              class="popup-menu"
-              @click.stop>
+          <view v-if="popupVisible" class="popup-menu" :style="{ top: popupPosition.top + 'px', left: popupPosition.left + 'px' }">
             <button class="popup-button edit" @click="editComment">修改</button>
             <button class="popup-button delete" @click="deleteComment">删除</button>
           </view>
 
           <!-- 修改框 -->
-          <view v-show="isEditing" class="edit-box">
+          <view v-show="isEditing" class="edit-box" :style="{ top: popupPosition.top + 'px'}">
             <view class="original-content">
               <blockquote>{{ this.comment.contentText }}</blockquote>
             </view>
@@ -143,7 +140,7 @@
             </view>
           </view>
           <!-- 遮罩层，点击空白处关闭弹窗 -->
-          <view v-if="show" class="mask" @click="hidePopup"></view>
+          <view v-if="popupVisible" class="mask" @click="hidePopup"></view>
         </view>
 
         <!-- 分页按钮 -->
@@ -195,6 +192,8 @@ export default {
 
   data() {
     return {
+      popupVisible: false,   // 控制菜单显示
+      popupPosition: { top: 0, left: 0 }, // 菜单位置
       comment: {},
       comments: [],
       articleInfo: {
@@ -205,7 +204,6 @@ export default {
       animation: 'twinkle',
       currentPage: 1, // 当前页
       pageSize: 3, // 每页显示 10 条
-      show: false,  // 控制弹出层的显示与隐藏
       isEditing: false,
       editContent: '',       // 保存编辑内容
     }
@@ -285,16 +283,29 @@ export default {
       let date = new Date(timeArr[0], timeArr[1] - 1, timeArr[2], timeArr[3], timeArr[4], timeArr[5]);
       return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')} ${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}:${String(date.getSeconds()).padStart(2, '0')}`;
     },
-    showPopup(comment) {
+    // 显示菜单，并设置其位置
+    showPopup(index, comment) {
+      this.popupVisible = true;
+      // 获取点击的按钮位置
+      // 尝试获取最近的父级元素
+      this.$nextTick(() => {
+        const iconElement = this.$refs.menuIcons[index];
+        if (iconElement) {
+          console.log(iconElement, iconElement.$el);
+          const rect = iconElement.$el.getBoundingClientRect();
+          this.popupPosition = {
+            top: rect.bottom + window.scrollY,
+            left: rect.left + window.scrollX - 40
+          };
+        }
+      });
       this.comment = comment
-      console.log(comment)
-      this.show = true;
     },
     hidePopup() {
-      this.show = false;
+      this.popupVisible = false;
     },
     editComment() {
-      this.show = false;        // 关闭弹出菜单
+      this.popupVisible = false;        // 关闭弹出菜单
       this.isEditing = true;    // 显示修改框
       this.editContent = this.comment.comment  // 默认显示原内容
     },
@@ -451,26 +462,49 @@ export default {
   margin-left: 10rpx;
 }
 
-/* 自定义弹出菜单 */
+/* 菜单样式 */
 .popup-menu {
-  background: blanchedalmond;
+  position: absolute;
+  background: white;
   border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-  z-index: 1000;
-  padding: 10px;
-  display: flex;
-  flex-direction: column;
+  z-index: 999;
+  width: 150rpx;
+  padding: 5px 0;
 }
 
 /* 按钮样式 */
 .popup-button {
   background: none;
-  border: none;
+  border: grey solid 1px;
   padding: 10px;
-  font-size: 16px;
+  font-size: 25rpx;
   text-align: center;
-  width: 100%;
+  width: 80%;
   z-index: 1000;
+}
+
+.popup-button:hover {
+  background: #f5f5f5;
+}
+
+/* 删除按钮特殊样式 */
+.popup-button.delete {
+  color: red;
+}
+
+.popup-button.delete:hover {
+  background: rgba(255, 0, 0, 0.1);
+  color: darkred;
+}
+
+/* 编辑按钮特殊样式 */
+.popup-button.edit {
+  color: black;
+}
+
+.popup-button.edit:hover {
+  background: rgba(0, 0, 0, 0.05);
+  color: #333;
 }
 
 .original-content blockquote {
@@ -483,20 +517,27 @@ export default {
 }
 
 .edit-box {
+  position: absolute;
+  width: 70%;
   background: blanchedalmond;
-  padding: 30rpx; /* 增大评论框的大小 */
+  padding: 20rpx;
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  z-index: 999;
+  left: 50%; /* 让左边界在屏幕中心 */
+  transform: translateX(-50%); /* 向左偏移自身宽度的 50% */
 }
 
 .edit-input {
-  width: 90%;
-  height: 40rpx;
-  padding: 10rpx; /* 增大输入框 */
+  width: 100%;
+  height: 20rpx;
+  padding: 5rpx; /* 增大输入框 */
   border: 1px solid #ccc;
   border-radius: 5px;
   margin-bottom: 20rpx;
-  font-size: 16px; /* 增大字体 */
+  font-size: 12px; /* 增大字体 */
+  align-content: center;
+  align-items: center;
 }
 
 .button-container {
@@ -510,12 +551,12 @@ button {
   display: flex;
   justify-content: center; /* 水平居中 */
   align-items: center;     /* 垂直居中 */
-  padding: 10rpx 20rpx;
+  padding: 2rpx 50rpx;
   background-color: #0099FF;
   color: white;
   border: none;
   border-radius: 5px;
-  font-size: 16px;
+  font-size: 10px;
 }
 
 .cancel-button {
@@ -535,19 +576,6 @@ button {
   height: 100%;
   background: rgba(0, 0, 0, 0);
   z-index: 100;
-}
-
-.popup-button:hover {
-  z-index: 1000;
-
-  background: #f0f0f0;
-}
-
-.delete {
-  color: red;
-}
-.edit {
-  color: #9acafc;
 }
 
 </style>
