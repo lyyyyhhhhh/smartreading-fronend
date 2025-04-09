@@ -343,7 +343,7 @@ export default {
 
     // 请求文章数据【2024年6月3日17:17:58 请求30条所有数据】
     uni.request({
-      url: `http://localhost:8088/api/articles/recommend?userId=${this.userid}`,
+      url: `http://114.215.189.9:8088/api/articles/recommend?userId=1`,
       method: 'GET',
       data: {},
       success: res => {
@@ -389,12 +389,15 @@ export default {
   onShow() {
     this.searchValue = '';
     this.selectshow = false;
+    if (!this.userid) {
+      return; // 直接中断请求
+    }
     uni.request({
       url: `http://114.215.189.9:8088/api/user-purchased-articles/user?userId=${this.userid}`,
       method: 'GET',
       data: {},
       success: res => {
-        this.userPurchasedArticles = [];
+        this.userPurchasedArticles = {};
         for (let i = 0; i < res.data.length; i++) {
           this.userPurchasedArticles[res.data[i].articleId] = true
         }
@@ -530,6 +533,13 @@ export default {
           content: `是否确认购买文章《${articleiteminfo.title}》？\n售价 ${articleiteminfo.price} 积分`,
           success: (res) => {
             if (res.confirm) {
+              if (!this.userid) {
+                uni.showToast({
+                  title: '请先登录后再使用此功能',
+                  icon: 'none'
+                });
+                return; // 直接中断请求
+              }
               console.log('用户确认购买文章', articleiteminfo.title);
               if (this.points >= articleiteminfo.price) {
                 // 不必同步等待

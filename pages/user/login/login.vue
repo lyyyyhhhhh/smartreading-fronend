@@ -230,21 +230,21 @@
 			toRegister() {
 
 				// 2024年6月12日10:28:41 暂时关闭注册功能
-				uni.showToast({
-					title: '暂未开通此功能, 请联系管理员分配账号!',
-					icon: 'fail'
-				});
+				// uni.showToast({
+				// 	title: '暂未开通此功能, 请联系管理员分配账号!',
+				// 	icon: 'fail'
+				// });
 
 				// console.log("注册账号");
 
-				// uni.navigateTo({
-				// 	url: '../register/register',
-				// 	success: res => {
-				// 		console.log("跳转注册页面成功");
-				// 	},
-				// 	fail: () => {},
-				// 	complete: () => {}
-				// });
+				uni.navigateTo({
+					url: '../register/register',
+					success: () => {
+						console.log("跳转注册页面成功");
+					},
+					fail: () => {},
+					complete: () => {}
+				});
 			},
 			goToAgreement() {
 				console.log("打开服务协议");

@@ -190,7 +190,7 @@ export default {
     return {
       isLoading: true, // 加载状态，初始化为 true
       points: 5068, // 当前积分
-      coins: 0.17, // 当前现金
+      coins: 0, // 当前现金
       taskRules: {
         "SIGN_IN": {
           name: '评论任务',
@@ -221,7 +221,7 @@ export default {
       currentDate: new Date().toLocaleDateString(),
       pointsLog: [
         {
-          description: "购买送京豆",
+          description: "完成签到任务",
           points: 5,
           referenceNum: "13857",
           createTime: "2025-02-22 22:31:25"
@@ -296,7 +296,7 @@ export default {
       // 请求任务的次数状态
       await new Promise((resolve, reject) => {
         uni.request({
-          url: `http://114.215.189.9:8088/api/tasks/detail?userId=1&taskType=${taskType}`,
+          url: `http://114.215.189.9:8088/api/tasks/detail?userId=${this.userid}&taskType=${taskType}`,
           //url: `http://localhost:8088/api/tasks/detail?userId=${this.userid}&taskType=${taskType}`,
           method: 'GET',
           success: res => {
@@ -399,10 +399,10 @@ export default {
       await new Promise((resolve, reject) => {
         // 请求任务的次数状态
         uni.request({
-          url: `http://114.215.189.9:8088/api/points/user?userId=1`,
-          //url: `http://localhost:8088/api/points/user?userId=${this.userid}`,
+          url: `http://114.215.189.9:8088/api/points/user?userId=${this.userid}`,
           method: 'GET',
           success: res => {
+            console.log(res.data);
             this.points = res.data.totalPoints;
             this.coins = res.data.coins;
             resolve();
@@ -567,7 +567,7 @@ export default {
 
     getPointsLog() {
       uni.request({
-        url: `http://114.215.189.9:8088/api/points/log?userId=1`,
+        url: `http://114.215.189.9:8088/api/points/log?userId=${this.userid}`,
         method: 'GET',
         success: res => {
           this.pointsLog = [];
@@ -679,7 +679,7 @@ export default {
   background-color: #fff;
   padding: 5px;
   border-radius: 10px;
-  max-height: 60%; /* 最大高度 60% */
+  max-height: 70%; /* 最大高度 60% */
   overflow-y: auto; /* 支持纵向滚动 */
 }
 

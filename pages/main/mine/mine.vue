@@ -65,21 +65,21 @@
 								<view>
 									毕业论文题目
 									<view style="margin-top: 20rpx; font-size: 22rpx;">
-										基于深度学习的<<读者>>杂志阅读资源推荐算法研究与应用
+                    基于提升智阅 APP 用户黏性的创新互动体系构建与应用
 									</view>
 								</view>
 
 								<view style="margin-top: 20rpx;">
 									时间
 									<view style="margin-top: 20rpx; font-size: 22rpx;">
-										2023年10月 - 2025年3月
+										2024年10月 - 2025年4月
 									</view>
 								</view>
 
 								<view style="margin-top: 20rpx;">
 									作者
 									<view style="margin-top: 20rpx; font-size: 22rpx;">
-										LZU信息科学与工程学院计算机科学与技术专业2022级硕士研究生丁家雄
+										LZU信息科学与工程学院计算机科学与技术专业2021级本科生李云昊
 									</view>
 								</view>
 							</view>

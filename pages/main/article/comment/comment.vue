@@ -469,14 +469,14 @@ export default {
   border-radius: 8px;
   z-index: 999;
   width: 150rpx;
-  padding: 5px 0;
+  padding: 5px;
 }
 
 /* 按钮样式 */
 .popup-button {
   background: none;
   border: grey solid 1px;
-  padding: 10px;
+  padding: 15px;
   font-size: 25rpx;
   text-align: center;
   width: 80%;
@@ -551,7 +551,7 @@ button {
   display: flex;
   justify-content: center; /* 水平居中 */
   align-items: center;     /* 垂直居中 */
-  padding: 2rpx 50rpx;
+  padding: 10rpx 50rpx;
   background-color: #0099FF;
   color: white;
   border: none;

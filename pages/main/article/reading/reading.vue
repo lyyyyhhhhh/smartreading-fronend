@@ -130,7 +130,7 @@
           :style="{paddingTop:'calc('+statusBarHeight+' + 40px)',color:textColor,fontSize:forUpx(size)+'px',lineHeight:forUpx(lineHeight)+'px'}">
 
       <view class="text-container">
-        <rich-text :nodes="richTextNodes" selectable="true" @mouseup="handleSelection"
+        <rich-text :nodes="richTextNodes" selectable="true" @mouseup="handleSelection" @touchend="handleSelection"
                    style="position: relative;"></rich-text>
       </view>
 
@@ -238,7 +238,7 @@
           <text style="font-size: 25rpx;">🏆距上一名还差：</text>
           <text class="heat-highlight">{{ heatDiff }}</text>
         </view>
-        <view class="heat-gap" v-else-if="rank = 0">
+        <view class="heat-gap" v-else-if="rank === 0">
           <text style="font-size: 25rpx;">🏆领先第二名：</text>
           <text class="heat-highlight">{{ -heatDiff }}</text>
         </view>
@@ -531,7 +531,7 @@ export default {
       currentHeat: 1200, // 文章当前热度
       heatDiff: 0, // 距离上一名的差值
       rank: 1, // 文章当前排名（1 表示第一名）
-      userPoints: 500, // 用户当前积分
+      userPoints: 0, // 用户当前积分
       contributeHeat: '', // 用户输入的贡献热度
       requiredPoints: 0, // 计算所需积分
       pointsPerHeat: 5 // 每 1 热度消耗的积分数
@@ -615,54 +615,14 @@ export default {
 
 
     var articleinfo = JSON.parse(e.article);
-    // 使用nginx代理
-    var proxyUrl = articleinfo.oosurl.replace(
-        "https://dingjiaxiong.oss-cn-hangzhou.aliyuncs.com",
-        "http://114.215.189.9/oss"
-    );
-    console.log(articleinfo.oosurl, proxyUrl);
     this.thisarticleid = articleinfo.articleid;
-    if (this.userid === null) {
-      this.$store.commit('setDefaultUserId');
-    }
-    this.getHighlightsFromDb(this.userid, this.thisarticleid)
+    this.getHighlightsFromDb(this.thisarticleid)
     this.getArticleHeat(this.thisarticleid)
     this.getUserPoints()
-
-    uni.request({
-      url: proxyUrl,
-      method: 'GET',
-      data: {},
-      success: res => {
-        this.content_text = res.data;
-        this.section_title = articleinfo.title;
-
-        // 这里再获取一下收藏状态信息
-        uni.request({
-          url: 'http://123.56.217.170:2222/api/collection/ifornot/' + this.userid + "/" +
-              this.thisarticleid,
-          method: 'GET',
-          data: {},
-          success: () => {
-            this.collecitonif = false;
-            // 到这里动画结束
-            setTimeout(() => {
-              this.pageLoading = false;
-            }, 2000);
-          },
-        });
-        // 获取阅读任务信息
-        this.updateReadingTask();
-      },
-      fail: () => {
-        console.log("获取文章数据失败")
-      },
-      complete: () => {
-      }
-    });
-
+    this.getUserCollections(articleinfo)
   },
   methods: {
+
     attachEventListeners() {
       // 给选中的高亮元素绑定展示的函数
       document.querySelector('.text-container').addEventListener('click', (event) => {
@@ -687,6 +647,13 @@ export default {
     },
     // 点击收藏按钮
     favClick() {
+      if (!this.userid) {
+        uni.showToast({
+          title: '请先登录后再使用此功能',
+          icon: 'none'
+        });
+        return; // 直接中断请求
+      }
       // 收藏操作
       if (!this.collecitonif) {
         uni.request({
@@ -880,6 +847,13 @@ export default {
 
     // 提交评论
     submitComment() {
+      if (!this.userid) {
+        uni.showToast({
+          title: '请先登录后再使用此功能',
+          icon: 'none'
+        });
+        return; // 直接中断请求
+      }
       if (!this.commentText.trim()) return;
       const highlight = this.currentHighlight;
       highlight.comment = this.commentText;
@@ -931,17 +905,18 @@ export default {
     getPosition(rect) {
       const windowHeight = window.innerHeight; // 浏览器视窗的高度
       const windowWidth = window.innerWidth; // 浏览器视窗的宽度
-      const commentHeight = 100; // 评论框的高度（假设）
-      const commentWidth = 356; // 评论框的宽度（假设）
+      const commentHeight = 180; // 评论框的高度
+      const commentWidth = 356; // 评论框的宽度
       const margin = 18; // 评论框与目标元素的间距
 
       // 计算目标元素在整个页面中的位置
       const elementTop = rect.top // 元素相对于页面顶部的位置
       const elementBottom = rect.bottom // 元素底部相对于页面的位置
       let top;
+      console.log(elementTop, elementBottom, windowHeight)
       if (elementBottom + commentHeight > windowHeight) {
-        // 如果点击位置在视窗的下半部分，评论框显示在下方
-        top = elementTop + commentHeight + margin;
+        // 如果点击位置在视窗的下半部分，评论框显示在上方
+        top = elementTop - commentHeight - margin;
       } else {
         // 否则，评论框显示在上方
         top = elementBottom + margin;
@@ -980,7 +955,7 @@ export default {
         method: 'DELETE',
         data: this.currentHighlight,
         success: res => {
-          this.getHighlightsFromDb(this.userid, this.thisarticleid)
+          this.getHighlightsFromDb(this.thisarticleid)
           this.closeCommentDetail()
         },
         fail: () => {
@@ -1030,20 +1005,23 @@ export default {
     },
 
     // 从db中获取所有高亮评论
-    getHighlightsFromDb(userId, articleId) {
+    getHighlightsFromDb(articleId) {
+      if (!this.userid) {
+        return; // 直接中断请求
+      }
       uni.request({
-        url: `http://114.215.189.9:8088/api/highlight/user?userId=${userId}&articleId=${articleId}`,
-        method: 'GET',
-        success: res => {
-          this.highlights = res.data;
-          for (const highlight of this.highlights) {
-            this.comments[highlight.id] = highlight.comment
-          }
-        },
-        fail: () => {
-          console.log("请求数据异常")
-        },
-      });
+          url: `http://114.215.189.9:8088/api/highlight/user?userId=${this.userid}&articleId=${articleId}`,
+          method: 'GET',
+          success: res => {
+            this.highlights = res.data;
+            for (const highlight of this.highlights) {
+              this.comments[highlight.id] = highlight.comment
+            }
+          },
+          fail: () => {
+            console.log("请求数据异常")
+          },
+        });
     },
 
     // 开始计时
@@ -1063,6 +1041,9 @@ export default {
 
     // 提交当前阅读时长
     async submitTime() {
+      if (!this.userid) {
+        return; // 直接中断请求
+      }
       console.log(this.totalTime, this.tmpTime, this.progressTime);
       this.addedTime = this.totalTime - this.tmpTime;
       if (this.addedTime === 0) {
@@ -1098,8 +1079,11 @@ export default {
 
     // 更新当前阅读任务
     updateReadingTask() {
+      if (!this.userid) {
+        return; // 直接中断请求
+      }
       uni.request({
-        url: `http://114.215.189.9:8088/api/tasks/ongoing?userId=1&taskType=READING`,
+        url: `http://114.215.189.9:8088/api/tasks/ongoing?userId=${this.userid}&taskType=READING`,
         method: 'GET',
         success: async res => {
           // 获取阅读规则信息
@@ -1129,9 +1113,12 @@ export default {
 
     // 获取阅读时长
     async getReadingLog() {
+      if (!this.userid) {
+        return; // 直接中断请求
+      }
       await new Promise((resolve) => {
         uni.request({
-          url: `http://114.215.189.9:8088/api/reading/total?userId=1`,
+          url: `http://114.215.189.9:8088/api/reading/total?userId=${this.userid}`,
           method: 'GET',
           success: res => {
             this.totalTime = res.data;
@@ -1144,6 +1131,13 @@ export default {
 
     // 弹出阅读框
     showPopup() {
+      if (!this.userid) {
+        uni.showToast({
+          title: '请先登录后再使用此功能',
+          icon: 'none'
+        });
+        return; // 直接中断请求
+      }
       // 调用 uni-popup 的 open 方法显示弹窗
       this.$refs.popupRef.open();
       this.getUserReadingTask();
@@ -1190,8 +1184,7 @@ export default {
       // 请求任务的次数状态
       await new Promise((resolve, reject) => {
         uni.request({
-          url: `http://114.215.189.9:8088/api/tasks/detail?userId=1&taskType=READING`,
-          //url: `http://localhost:8088/api/tasks/detail?userId=${this.userid}&taskType=${taskType}`,
+          url: `http://114.215.189.9:8088/api/tasks/detail?userId=${this.userid}&taskType=READING`,
           method: 'GET',
           success: res => {
             task.status = res.data.status;
@@ -1276,6 +1269,13 @@ export default {
 
     // 弹出热度框
     openHotPopup() {
+      if (!this.userid) {
+        uni.showToast({
+          title: '请先登录后再使用此功能',
+          icon: 'none'
+        });
+        return; // 直接中断请求
+      }
       this.$refs.hotPopupRef.open(); // 打开弹窗
     },
 
@@ -1286,6 +1286,9 @@ export default {
 
     // 查询文章热度
     async getArticleHeat(articleId) {
+      if (!this.userid) {
+        return; // 直接中断请求
+      }
       await new Promise((resolve) => {
         uni.request({
           url: `http://114.215.189.9:8088/heat/getHeat?articleId=${articleId}`,
@@ -1295,6 +1298,7 @@ export default {
             this.currentHeat = res.data.heat;
             this.heatDiff = res.data.heatDiff;
             this.rank = res.data.rank;
+            console.log(this.rank);
             resolve();
           },
         })
@@ -1316,12 +1320,55 @@ export default {
       })
     },
 
+    async getUserCollections(articleinfo) {
+      // 使用nginx代理
+      var proxyUrl = articleinfo.oosurl.replace(
+          "https://dingjiaxiong.oss-cn-hangzhou.aliyuncs.com",
+          "http://114.215.189.9/oss"
+      );
+      console.log(articleinfo.oosurl, proxyUrl);
+      uni.request({
+        url: proxyUrl,
+        method: 'GET',
+        data: {},
+        success: res => {
+          this.content_text = res.data;
+          this.section_title = articleinfo.title;
+
+          // 这里再获取一下收藏状态信息
+          uni.request({
+            url: 'http://123.56.217.170:2222/api/collection/ifornot/' + this.userid + "/" +
+                this.thisarticleid,
+            method: 'GET',
+            data: {},
+            success: () => {
+              this.collecitonif = false;
+              // 到这里动画结束
+              setTimeout(() => {
+                this.pageLoading = false;
+              }, 2000);
+            },
+          });
+          // 获取阅读任务信息
+          this.updateReadingTask();
+        },
+        fail: () => {
+          console.log("获取文章数据失败")
+        },
+        complete: () => {
+        }
+      });
+
+    },
     // 查询用户积分
     async getUserPoints() {
+      if (!this.userid) {
+        return; // 直接中断请求
+      }
       await new Promise((resolve, reject) => {
         // 请求任务的次数状态
         uni.request({
-          url: `http://114.215.189.9:8088/api/points/user?userId=1`,
+          url: `http://114.215.189.9:8088/api/points/user?userId=${this.userid}`,
           method: 'GET',
           success: res => {
             this.userPoints = res.data.totalPoints;

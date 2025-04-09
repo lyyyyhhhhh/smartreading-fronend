@@ -219,7 +219,7 @@
 								// 发送请求完成用户注册
 
 								uni.request({
-									url: 'http://123.56.217.170:2222/user/register',
+									url: 'http://123.56.217.170:2222/api/user/register',
 									method: 'POST',
 									data: this.formData,
 									success: res => {
@@ -234,6 +234,12 @@
 											});
 
 											// 跳转至登录页面
+                      uni.navigateTo({
+                        url: '../login/login',
+                        success: () => {
+                          console.log("跳转登录页面成功");
+                        },
+                      });
 
 										} else if (res.data === -1) {
 											uni.showToast({
