@@ -338,7 +338,8 @@ export default {
         if (taskType === 'SIGN_IN') {
           sumPoints += task.conditionJson.extra_points[task.progress.continuousNum % 7];
         } else if (taskType === "READING") {
-          sumPoints += task.conditionJson.time_stage[task.claimedNum - 1].points;
+          console.log(this.taskRules[taskType], task, task.claimedNum)
+          sumPoints += task.conditionJson.time_stage[task.claimedNum].points;
         }
         this.points += sumPoints; // 增加积分
         uni.showToast({
@@ -357,8 +358,7 @@ export default {
           url: `http://114.215.189.9:8088/api/tasks/claim`,
           method: 'POST',
           data: {
-            'userId': 1,
-            //'userId': this.userid,
+            'userId': this.userid,
             'taskType': taskType,
           },
           success: () => {
@@ -380,8 +380,7 @@ export default {
           url: `http://114.215.189.9:8088/api/sign-in`,
           method: 'POST',
           data: {
-            'userId': 1,
-            //'userId': this.userid,
+            'userId': this.userid,
           },
           success: () => {
             console.log("签到成功")
@@ -532,8 +531,7 @@ export default {
           url: `http://114.215.189.9:8088/api/points/exchange`,
           method: 'POST',
           data: {
-            'userId': 1,
-            //'userId': this.userid,
+            'userId': this.userid,
             'points': pointsToExchange,
             'coins': exchangedCoin,
           },

@@ -1056,7 +1056,7 @@ export default {
           data: {
             "articleId": this.thisarticleid,
             "addedTime": this.addedTime,
-            "userId": 1,
+            "userId": this.userid,
           },
           success: async () => {
             console.log("提交阅读时长详细功能");

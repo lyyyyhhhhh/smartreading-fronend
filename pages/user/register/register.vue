@@ -224,7 +224,8 @@
 									data: this.formData,
 									success: res => {
 										console.log(res);
-
+                    console.log(res.data);
+                    const userId = res.data.data;
 										if (res.data !== -1) {
 											console.log("注册新用户成功");
 
@@ -233,6 +234,16 @@
 												icon: 'success'
 											});
 
+                      uni.request({
+                        url: `http://114.215.189.9:8088/api/tasks/init?userId=${userId}`,
+                        method: 'POST',
+                        success: () => {
+                          console.log("注册任务成功")
+                        },
+                        fail: err => {
+                          console.log(userId, "注册任务失败", err);
+                        }
+                      });
 											// 跳转至登录页面
                       uni.navigateTo({
                         url: '../login/login',
